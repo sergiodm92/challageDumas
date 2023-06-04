@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getRandomImages } from "../../services/imagesServices";
 import { Image } from "../../models/image";
+import CardImage from "../Cats/cardImage";
+import styles from "./styles.module.css"
 
 const imagesList: React.FC = () => {
   const [images, setimages] = useState<Image[]>([]);
@@ -25,12 +27,15 @@ const imagesList: React.FC = () => {
     <div>
       <h2>Imágenes</h2>
       <button onClick={fetchimages}>Cargar imágenes</button>
-      <div className="image-grid">
+      <div className={styles.catList}>
         {images.map((image) => (
-          <div key={image.id} className="image-item">
-            <img src={image.url} alt={`image ${image.id}`} />
+          <div key={image.id} className={styles.divCard}>
+            <div className={styles.catCard}>
+            <CardImage image={image.url} />
+
+            </div>
             <button onClick={() => handleFavorite(image.id)}>
-              Agregar a Favoritos
+              Agregar a Favorito
             </button>
           </div>
         ))}

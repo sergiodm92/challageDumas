@@ -1,50 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { getCats, deleteCat } from "../../services/catsService";
+import { Cat } from "../../models/Cat";
+import { Link } from "react-router-dom";
+import styles from "./CatList.module.css";
+import Card from "./card";
 
-import { getCats, deleteCat } from '../../services/catsService';
-import { Cat } from '../../models/Cat';
-import { Link } from 'react-router-dom';
-
-
-const catList: React.FC = () => {
-  const [cats, setcats] = useState<Cat[]>([]);
+const CatList: React.FC = () => {
+  const [cats, setCats] = useState<Cat[]>([]);
 
   useEffect(() => {
-    get_cats();
+    get_Cats();
   }, []);
 
-  const get_cats = async () => {
+  const get_Cats = async () => {
     const data = await getCats();
-    setcats(data);
+    setCats(data);
   };
 
   const handleDelete = async (catId: string) => {
-    console.log("eliminar ")
     await deleteCat(catId);
-    get_cats();
+    getCats();
   };
+
   return (
     <div>
-      <h2>Lista de cats</h2>
-      <Link to="/cats/create">Crear cat</Link>
-      <ul>
+      <h2>Lista de gatos</h2>
+      <Link to="/cats/create"><button>Crear gato</button></Link>
+      <div className={styles.catList}>
         {cats.map((cat) => (
-          <li key={cat.id}>
-            <img src={cat.photo_url} alt={cat.name} />
-            <div>
-              <h3>{cat.name}</h3>
-              <p>Raza: {cat.breed}</p>
-              <p>age: {cat.age}</p>
-              <p>id: {cat.id}</p>
+          <div className={styles.divCard} key={cat.id}>
+            <div className={styles.catCard}>
+              <Card
+                image={cat.photo_url}
+                name={cat.name}
+                breed={cat.breed}
+                age={cat.age}
+                id={cat.id}
+              />
             </div>
-            <div>
-              <Link to={`/cats/edit/${cat.id}`}>Editar</Link>
+            <div className={styles.divButtons}>
+              <Link to={`/cats/edit/${cat.id}`}><button>Editar</button></Link>
               <button onClick={() => handleDelete(cat.id)}>Eliminar</button>
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
 
-export default catList;
+export default CatList;

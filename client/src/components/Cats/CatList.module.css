@@ -1,0 +1,84 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .catList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .divCard {
+    flex: 0 0 20%;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center;
+    height: auto;
+  }
+  .catCard{
+    margin-bottom: 10px;
+  }
+  .divButtons{
+    display: flex;
+    gap:10px;
+  }
+  
+  .catImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .catDetails {
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .catActions {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .editLink {
+    margin-right: 10px;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .catCard {
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    .catCard {
+      flex: 0 0 33.33%;
+      max-width: 33.33%;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .catCard {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .catCard {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  }
+  
