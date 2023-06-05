@@ -1,24 +1,36 @@
-import React from 'react';
-import { NavLink } from "react-router-dom";
-import styles from "./style.module.css"
+import { Link, useLocation } from 'react-router-dom';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import HomeIcon from '@mui/icons-material/Home';
+import PetsIcon from '@mui/icons-material/Pets';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 
+export default function NavigationBar() {
+  const location = useLocation();
 
-const NavigationBar: React.FC = () => {
   return (
-    <nav className={styles.navbar}>
-      <ul>
-        <li>
-          <NavLink to="/">Inicio</NavLink>
-        </li>
-        <li>
-          <NavLink to="/cats">Gatos</NavLink>
-        </li>
-        <li>
-          <NavLink to="/images">Imágenes</NavLink>
-        </li>
-      </ul>
-    </nav>
+    <BottomNavigation sx={{ width: "100%", backgroundColor: "black"}} value={location.pathname}>
+      <BottomNavigationAction
+        label="Inicio"
+        value="/"
+        icon={<HomeIcon color="primary"/>}
+        component={Link}
+        to="/"
+      />
+      <BottomNavigationAction
+        label="Gatos"
+        value="/cats"
+        icon={<PetsIcon color="primary"/>}
+        component={Link}
+        to="/cats"
+      />
+      <BottomNavigationAction
+        label="Imagenes"
+        value="/images"
+        icon={<PhotoLibraryIcon color="primary"/>}
+        component={Link}
+        to="/images"
+      />
+    </BottomNavigation>
   );
-};
-
-export default NavigationBar;
+}

@@ -1,43 +1,25 @@
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+.container{
+  margin-top: 20px;
+  width: 98%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
   
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .catList {
+  .divCreate{
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
   }
-  
-  .divCard {
-    flex: 0 0 20%;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 10px;
-    box-sizing: border-box;
-    text-align: center;
-    height: auto;
-  }
-  .catCard{
-    margin-bottom: 10px;
+  .catList {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    justify-items: center;
   }
   .divButtons{
     display: flex;
+    justify-content: center;
     gap:10px;
-  }
-  
-  .catImage {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 8px 8px 0 0;
   }
   
   .catDetails {

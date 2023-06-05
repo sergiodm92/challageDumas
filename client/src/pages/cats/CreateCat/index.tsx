@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createCat } from "../../services/catsService";
-import { NewCat } from "../../models/Cat";
-import styles from "./CatForm.module.css";
+import { createCat } from "../../../store/actions";
+import { NewCat } from "../../../models/Cat";
+import styles from "./CreateCat.module.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { Redux_State } from "../../../models/global_types";
 
 const CatForm: React.FC = () => {
   const navigate = useNavigate();
@@ -11,6 +13,10 @@ const CatForm: React.FC = () => {
   const [age, setAge] = useState(0);
   const [photoUrl, setPhotoUrl] = useState("");
 
+  const dispatch :any = useDispatch();
+
+  const message = useSelector((state: Redux_State) => state.message);
+
   const handleGuardar = async () => {
     const newCat: NewCat = {
       name: name,
@@ -18,17 +24,21 @@ const CatForm: React.FC = () => {
       age: age,
       photo_url: photoUrl,
     };
-    const response:any = await createCat(newCat);
-    console.log(newCat)
-    if(response) navigate("/cats");
+    dispatch(createCat(newCat));
   };
+
+  useEffect(() => {
+    if (message) {
+      navigate("/cats");
+    }
+  }, [message]);
 
   const handleCancelar = () => {
     navigate("/cats");
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <h2>Crear Cat</h2>
       <form className={styles.form}>
         <fieldset>
@@ -80,4 +90,4 @@ const CatForm: React.FC = () => {
 };
 
 export default CatForm;
-  
+

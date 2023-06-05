@@ -1,0 +1,42 @@
+import React, { useEffect, useState } from "react";
+import { Image } from "../../models/image";
+import CardImage from "../../components/ImageCard/cardImage";
+import CachedIcon from '@mui/icons-material/Cached';
+import styles from "./styles.module.css";
+import { Button } from "@mui/material";
+import {useDispatch, useSelector} from 'react-redux'
+import { getRandomImages } from "../../store/actions";
+import { Redux_State } from "../../models/global_types";
+
+const imagesList: React.FC = () => {
+
+  const dispatch:any = useDispatch()
+
+  const images = useSelector((state:Redux_State)=>state.images)
+
+  useEffect(() => {
+    dispatch(getRandomImages())
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.divReload}>
+        <Button onClick={()=>dispatch(getRandomImages())} variant="contained" endIcon={<CachedIcon/>}>
+          Recargar
+        </Button>
+      </div>
+      
+      <div className={styles.catList}>
+        {images.map((image) => (
+          <div key={image.id} className={styles.divCard}>
+            <div className={styles.catCard}>
+              <CardImage image={image}/>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default imagesList;
