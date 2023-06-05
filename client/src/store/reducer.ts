@@ -4,7 +4,8 @@ import { Redux_State } from "../models/global_types";
 const initialState: Redux_State = {
   cats: [],
   message: "",
-  images:[]
+  images:[],
+  favoutites:[]
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -33,6 +34,11 @@ const reducer = (state = initialState, action: any) => {
         return {
           ...state,
           message: action.payload
+        };
+      case "GET_FAVOURITES":
+          return {
+          ...state,
+          favoutites: action.payload
         };
     default:
       return state;

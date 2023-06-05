@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createCat } from "../../../store/actions";
+import { createCat, getFavourites } from "../../../store/actions";
 import { NewCat } from "../../../models/Cat";
 import styles from "./CreateCat.module.css";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { Redux_State } from "../../../models/global_types";
 
 const CatForm: React.FC = () => {
@@ -13,9 +13,10 @@ const CatForm: React.FC = () => {
   const [age, setAge] = useState(0);
   const [photoUrl, setPhotoUrl] = useState("");
 
-  const dispatch :any = useDispatch();
+  const dispatch: any = useDispatch();
 
   const message = useSelector((state: Redux_State) => state.message);
+  const favourites = useSelector((state: Redux_State) => state.favoutites);
 
   const handleGuardar = async () => {
     const newCat: NewCat = {
@@ -32,11 +33,19 @@ const CatForm: React.FC = () => {
       navigate("/cats");
     }
   }, [message]);
+  useEffect(() => {
+    dispatch(getFavourites());
+  }, []);
 
   const handleCancelar = () => {
     navigate("/cats");
   };
-
+  console.log(favourites);
+  const handleChange = (e) => {
+    e.preventDefault();
+    setPhotoUrl(e.target.value);
+  };
+console.log(photoUrl)
   return (
     <div className={styles.container}>
       <h2>Crear Cat</h2>
@@ -72,12 +81,22 @@ const CatForm: React.FC = () => {
           </div>
           <div className={styles.formGroup}>
             <label htmlFor="photoUrl">Foto:</label>
-            <input
-              type="text"
-              id="photoUrl"
-              value={photoUrl}
-              onChange={(e) => setPhotoUrl(e.target.value)}
-            />
+            <select id={"selectImage"} onChange={handleChange}>
+              <option defaultValue={"-"}></option>
+              {favourites.length
+                ? favourites.map((image) => {
+                    return (
+                      <option key={image.id} value={image.image.url}>
+                        {image.image.url}
+                      </option>
+                    );
+                  })
+                : null}
+            </select>
+            {photoUrl?
+            <img src={`${photoUrl}`} className={styles.photo}/>
+            :null
+}
           </div>
         </fieldset>
       </form>
@@ -90,4 +109,3 @@ const CatForm: React.FC = () => {
 };
 
 export default CatForm;
-

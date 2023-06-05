@@ -41,4 +41,7 @@
   h2 {
     margin-bottom: 10px;
   }
-  
+  .photo{
+    width: 200px;
+    height: 200px;
+  }
