@@ -6,6 +6,13 @@ class CatCreate(BaseModel):
     age: int
     photo_url: str
 
+class Cat(BaseModel):
+    id: str
+    name: str
+    breed: str
+    age: int
+    photo_url: str
+
 class ImageID(BaseModel):
     image_id: str
 

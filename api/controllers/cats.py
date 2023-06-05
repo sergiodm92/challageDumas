@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from middlewares.response import custom_response_success, custom_response_error
 from services.cats_services import (
     get_all_cats, get_cat_by_id, create_cat, update_cat, delete_cat)
-from models import CatCreate
+from models import CatCreate, Cat
 
 router = APIRouter()
 
@@ -36,10 +36,10 @@ async def create_new_cat(cat_data: CatCreate):
         return custom_response_error(str(e), 500)
 
 
-@router.put("/{cat_id}")
-def update_cat_by_id(cat_id: int, cat_data: CatCreate):
+@router.put("/")
+async def update_cat_by_id(data: Cat):
     try:
-        cat = update_cat(cat_id, cat_data.dict())
+        cat = await update_cat(data)
         return custom_response_success(cat)
     except Exception as e:
         return custom_response_error(str(e), 404)

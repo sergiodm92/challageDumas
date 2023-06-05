@@ -1,6 +1,6 @@
 import requests
 from db import get_database
-
+from models import Cat, CatCreate
 
 db = get_database()
 
@@ -48,15 +48,21 @@ async def get_cat_by_id(cat_id: int):
         raise Exception("Gato no encontrado")
 
 
-async def update_cat(cat_id: int, cat_data: dict):
-    doc_ref_cat = db.collection('cats').document(cat_id)
-    doc_ref_cat.update(cat_data)
+async def update_cat(data: Cat):
+    doc_ref_cat = db.collection('cats').document(data.id)
+    doc_ref_cat.update({
+        'name': data.name,
+        'breed': data.breed,
+        'photo_url': data.photo_url,
+        'age': data.age
+    })
 
     doc_snapshot_cat = doc_ref_cat.get()
     if doc_snapshot_cat.exists:
         return doc_snapshot_cat.to_dict()
     else:
         raise Exception("Gato no encontrado")
+
 
 
 async def delete_cat(cat_id):
@@ -67,4 +73,3 @@ async def delete_cat(cat_id):
         doc_ref_cat.delete()
     else:
         raise Exception("Gato no encontrado")
-
