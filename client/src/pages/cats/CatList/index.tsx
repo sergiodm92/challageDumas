@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./CatList.module.css";
 import CatCard from "../../../components/CatCard";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -10,23 +10,25 @@ import { Redux_State } from "../../../models/global_types";
 
 const CatList: React.FC = () => {
   const dispatch: any = useDispatch();
-
+  const Navigate = useNavigate();
   const cats = useSelector((state: Redux_State) => state.cats);
 
   useEffect(() => {
     dispatch(getCats());
-  }, [cats]);
+  }, []);
 
   const handleDelete = async (catId: string) => {
-    dispatch(deleteCat(catId));
+    await dispatch(deleteCat(catId));
+    dispatch(getCats());
   };
-  
+  const handleClick = () => {
+    Navigate("/cats/create");
+  };
   return (
     <div className={styles.container}>
       <div className={styles.divCreate}>
         <Button
-          component={Link}
-          to="/cats/create"
+          onClick={handleClick}
           variant="contained"
           endIcon={<AddCircleIcon />}
         >

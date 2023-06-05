@@ -6,6 +6,7 @@ export interface Redux_State {
     message: string;
     images: Image[];
     favoutites:Favorite[]
+    editCat: Cat
   }
 
   export interface GetCatsAction {
@@ -39,4 +40,9 @@ export interface Redux_State {
     payload: Favorite[];
   }
   
-  export type Action = GetCatsAction | CreateCatAction | DeleteCatAction | GetRandomImagesAction |AddFavourite | RemoveFavourite | GetFavourites;
+  export interface EditCat {
+    type: "EDIT_CAT";
+    payload: Cat;
+  }
+  
+  export type Action = GetCatsAction | CreateCatAction | DeleteCatAction | GetRandomImagesAction |AddFavourite | RemoveFavourite | GetFavourites | EditCat;

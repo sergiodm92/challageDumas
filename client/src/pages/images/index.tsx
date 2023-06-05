@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { Image } from "../../models/image";
+import React, { useEffect } from "react";
 import CardImage from "../../components/ImageCard/cardImage";
 import CachedIcon from '@mui/icons-material/Cached';
 import styles from "./styles.module.css";

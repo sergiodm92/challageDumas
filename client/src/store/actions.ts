@@ -51,6 +51,20 @@ export const deleteCat = (catId: String) => {
   };
 };
 
+//action que guarda los datos del gato a editar
+export const editCat = (data:Cat) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      return dispatch({
+        type: "EDIT_CAT",
+        payload: data
+      })
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+};
 //-----------IMAGES--------------
 
 //action que trae 10 imagenes aleatorias

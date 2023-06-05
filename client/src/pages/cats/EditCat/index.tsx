@@ -2,21 +2,29 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createCat, getFavourites } from "../../../store/actions";
 import { NewCat } from "../../../models/Cat";
-import styles from "./CreateCat.module.css";
+import styles from "./EditCat.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Redux_State } from "../../../models/global_types";
-import { Button, FormControl, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  TextField,
+} from "@mui/material";
 import ImageSelector from "../../../components/ModalImage";
 
-const CatForm: React.FC = () => {
-  const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [breed, setBreed] = useState("");
-  const [age, setAge] = useState(0);
-  const [photoUrl, setPhotoUrl] = useState("");
+const EditCat: React.FC = () => {
 
   const dispatch: any = useDispatch();
   const favourites = useSelector((state: Redux_State) => state.favoutites);
+  const cat = useSelector((state: Redux_State) => state.editCat);
+
+
+  const navigate = useNavigate();
+  const [name, setName] = useState(cat.name);
+  const [breed, setBreed] = useState(cat.breed);
+  const [age, setAge] = useState(cat.age);
+  const [photoUrl, setPhotoUrl] = useState(cat.photo_url);
+
 
   const handleGuardar = async () => {
     const newCat: NewCat = {
@@ -39,7 +47,7 @@ const CatForm: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1>Crear Gato</h1>
+      <h1>Editar Gato</h1>
       <div className={styles.divForm}>
         <FormControl className={styles.form}>
           <div className={styles.formGroup}>
@@ -77,7 +85,10 @@ const CatForm: React.FC = () => {
           </div>
           <div className={styles.formGroup}>
             <div className={styles.selectImage}>
-              <ImageSelector data={favourites} setPhotoUrl={setPhotoUrl} />
+            <ImageSelector
+            data={favourites}
+            setPhotoUrl={setPhotoUrl}
+            />
             </div>
             {photoUrl ? (
               <img src={`${photoUrl}`} className={styles.photo} />
@@ -97,4 +108,4 @@ const CatForm: React.FC = () => {
   );
 };
 
-export default CatForm;
+export default EditCat;
