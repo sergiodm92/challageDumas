@@ -65,6 +65,22 @@ export const editCat = (data:Cat) => {
     }
   };
 };
+
+//action para eliminar un gato que esta guardado en la base de datos
+export const updateCat = (data:Cat) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const json = await axios.put(`/cats/`,data)
+      return dispatch({
+        type: "UPDATE_CAT",
+        payload: json.data.data
+      })
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+};
 //-----------IMAGES--------------
 
 //action que trae 10 imagenes aleatorias

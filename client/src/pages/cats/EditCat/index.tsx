@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createCat, getFavourites } from "../../../store/actions";
-import { NewCat } from "../../../models/Cat";
+import {  getFavourites, updateCat } from "../../../store/actions";
+import { Cat } from "../../../models/Cat";
 import styles from "./EditCat.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Redux_State } from "../../../models/global_types";
@@ -27,13 +27,14 @@ const EditCat: React.FC = () => {
 
 
   const handleGuardar = async () => {
-    const newCat: NewCat = {
+    const update_Cat: Cat = {
+      id: cat.id,
       name: name,
       breed: breed,
       age: age,
       photo_url: photoUrl,
     };
-    dispatch(createCat(newCat));
+    dispatch(updateCat(update_Cat));
     navigate("/cats");
   };
 

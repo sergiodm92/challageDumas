@@ -45,6 +45,11 @@ const reducer = (state = initialState, action: any) => {
         ...state,
         editCat: action.payload,
       };
+      case "UPDATE_CAT":
+        return {
+          ...state,
+          message: action.payload,
+        };
     default:
       return state;
   }

@@ -44,5 +44,9 @@ export interface Redux_State {
     type: "EDIT_CAT";
     payload: Cat;
   }
+  export interface UpdateCat {
+    type: "UPDATE_CAT";
+    payload: Cat;
+  }
   
-  export type Action = GetCatsAction | CreateCatAction | DeleteCatAction | GetRandomImagesAction |AddFavourite | RemoveFavourite | GetFavourites | EditCat;
+  export type Action = GetCatsAction | CreateCatAction | DeleteCatAction | GetRandomImagesAction |AddFavourite | RemoveFavourite | GetFavourites | EditCat | UpdateCat;
