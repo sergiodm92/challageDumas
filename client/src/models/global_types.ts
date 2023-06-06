@@ -1,4 +1,4 @@
-import { Cat } from "./Cat";
+import { Cat, NewCat } from "./Cat";
 import { Image, Favorite } from "./image";
 
 export interface Redux_State {
@@ -6,12 +6,17 @@ export interface Redux_State {
     message: string;
     images: Image[];
     favoutites:Favorite[]
-    editCat: Cat
+    cat: NewCat
   }
 
   export interface GetCatsAction {
     type: "GET_CATS";
     payload: Cat[];
+  }
+
+  export interface GetCatByIdAction {
+    type: "GET_CAT_BY_ID";
+    payload: NewCat;
   }
   
   export interface CreateCatAction {
@@ -49,4 +54,4 @@ export interface Redux_State {
     payload: Cat;
   }
   
-  export type Action = GetCatsAction | CreateCatAction | DeleteCatAction | GetRandomImagesAction |AddFavourite | RemoveFavourite | GetFavourites | EditCat | UpdateCat;
+  export type Action = GetCatsAction | CreateCatAction | DeleteCatAction | GetRandomImagesAction |AddFavourite | RemoveFavourite | GetFavourites | EditCat | UpdateCat | GetCatByIdAction;

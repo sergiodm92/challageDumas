@@ -20,6 +20,21 @@ export const getCats = () => {
   };
 };
 
+//action que trae un gato por id
+export const getCatById = (cat_id:string) => {
+  return async (dispatch: Dispatch<Action>) => {
+    try {
+      const response: any = await axios.get(`/cats/${cat_id}`);
+      return dispatch({
+        type: "GET_CAT_BY_ID",
+        payload: response.data.data
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 //action para crear un nuevo gato y guardarlo en la base de datos
 export const createCat = (cat: NewCat) => {
   return async (dispatch: Dispatch<Action>) => {
@@ -51,26 +66,11 @@ export const deleteCat = (catId: String) => {
   };
 };
 
-//action que guarda los datos del gato a editar
-export const editCat = (data:Cat) => {
-  return async (dispatch: Dispatch<Action>) => {
-    try {
-      return dispatch({
-        type: "EDIT_CAT",
-        payload: data
-      })
-    }
-    catch (error) {
-      console.log(error);
-    }
-  };
-};
-
 //action para eliminar un gato que esta guardado en la base de datos
-export const updateCat = (data:Cat) => {
+export const updateCat = (data:NewCat, cat_id:string) => {
   return async (dispatch: Dispatch<Action>) => {
     try {
-      const json = await axios.put(`/cats/`,data)
+      const json = await axios.put(`/cats/${cat_id}`,data)
       return dispatch({
         type: "UPDATE_CAT",
         payload: json.data.data

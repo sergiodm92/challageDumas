@@ -8,8 +8,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { CatToCard } from "../../models/Cat";
 import { useNavigate } from "react-router-dom";
-import { editCat } from "../../store/actions";
-import { useDispatch } from "react-redux";
 
 export default function CatCard({
   image,
@@ -20,15 +18,11 @@ export default function CatCard({
   handleDelete,
 }: CatToCard) {
   const Navigate = useNavigate();
-  const dispatch: any = useDispatch();
   const handleDeleteClick = () => {
     handleDelete(id);
   };
   const handleEdit = () => {
-    dispatch(
-      editCat({ id: id, name: name, breed: breed, age: age, photo_url: image })
-    );
-    Navigate("/cats/edit");
+    Navigate(`/cats/edit/${id}`);
   };
 
   return (

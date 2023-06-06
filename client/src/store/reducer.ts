@@ -5,7 +5,7 @@ const initialState: Redux_State = {
   message: "",
   images: [],
   favoutites: [],
-  editCat: { id: "", name: "", breed: "", age: 0, photo_url: "" },
+  cat: {  name: "", breed: "", age: 0, photo_url: "" },
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -14,6 +14,11 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         cats: action.payload,
+      };
+      case "GET_CAT_BY_ID":
+      return {
+        ...state,
+        cat: action.payload,
       };
     case "CREATE_CAT":
       return {
@@ -39,11 +44,6 @@ const reducer = (state = initialState, action: any) => {
       return {
         ...state,
         favoutites: action.payload,
-      };
-    case "EDIT_CAT":
-      return {
-        ...state,
-        editCat: action.payload,
       };
       case "UPDATE_CAT":
         return {

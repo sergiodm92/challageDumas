@@ -25,7 +25,7 @@ const AppContent: React.FC = () => {
         <Route path="/" element={<Home />} />
           <Route path="/cats" element={<CatList />} />
           <Route path="/cats/create" element={<CatForm />} />
-          <Route path="/cats/edit" element={<EditCat />} />
+          <Route path="/cats/edit/:cat_id" element={<EditCat />} />
           <Route path="/images" element={<ImagenesList />} />
         </Routes>
     </div>
