@@ -13,7 +13,8 @@
 }
 .divReload{
   display: flex;
-  justify-content: center;
+  justify-content: right;
+  width: 95%;
 }
 .reloadButton{
   background-color: rgb(30, 109, 206);
@@ -27,26 +28,26 @@
 
 }
 
-/* @media (max-width: 1800px) {
+@media (max-width: 1500px) {
   .catList {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-@media (max-width: 1600px) {
+@media (max-width: 1290px) {
   .catList {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 980px) {
   .catList {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 600px) {
   .catList {
     grid-template-columns: repeat(1, 1fr);
   }
-} */
+}
