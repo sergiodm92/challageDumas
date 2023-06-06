@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { CatToCard } from "../../models/Cat";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function CatCard({
   image,
@@ -25,8 +26,23 @@ export default function CatCard({
     Navigate(`/cats/edit/${id}`);
   };
 
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <Card sx={{ width: 300 }}>
+    <Card
+    sx={ width<1400? { width: 200, height: 340 }:width<1600?{ width: 250, height: 340 } :{ width: 300, height: 340 }}
+    >
       <CardMedia component="img" height="194" image={image} alt="image" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
