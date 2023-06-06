@@ -48,15 +48,9 @@ async def get_cat_by_id(cat_id: int):
         raise Exception("Gato no encontrado")
 
 
-async def update_cat(data: Cat):
-    doc_ref_cat = db.collection('cats').document(data.id)
-    doc_ref_cat.update({
-        'name': data.name,
-        'breed': data.breed,
-        'photo_url': data.photo_url,
-        'age': data.age
-    })
-
+async def update_cat(data: CatCreate, cat_id:str):
+    doc_ref_cat = db.collection('cats').document(cat_id)
+    doc_ref_cat.update(data.dict())
     doc_snapshot_cat = doc_ref_cat.get()
     if doc_snapshot_cat.exists:
         return doc_snapshot_cat.to_dict()

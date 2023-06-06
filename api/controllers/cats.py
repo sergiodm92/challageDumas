@@ -36,10 +36,10 @@ async def create_new_cat(cat_data: CatCreate):
         return custom_response_error(str(e), 500)
 
 
-@router.put("/")
-async def update_cat_by_id(data: Cat):
+@router.put("/{cat_id}")
+async def update_cat_by_id(data: CatCreate, cat_id: str):
     try:
-        cat = await update_cat(data)
+        cat = await update_cat(data, cat_id)
         return custom_response_success(cat)
     except Exception as e:
         return custom_response_error(str(e), 404)
