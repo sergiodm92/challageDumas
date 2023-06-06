@@ -30,6 +30,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def get_cats():
+    return "Aplicacion funcionando con exito, para mas informacion ir a ==> '/docs'"
+
+
 app.include_router(cats_router, prefix="/cats", tags=["Gatos"])
 app.include_router(images_router, prefix="/images", tags=["Imagenes"])
 
