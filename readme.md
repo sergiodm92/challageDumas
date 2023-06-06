@@ -2,8 +2,6 @@
 
 Prueba técnica, en la cual realizé una app para mostrar imagenes de gatos, crear un nuevo gato, editarlo o eliminarlo.
 
-![Proyecto](https://ruta-imagen.jpg)
-
 ## Tecnologías Utilizadas
 
 - Backend: FastAPI, Firebase
