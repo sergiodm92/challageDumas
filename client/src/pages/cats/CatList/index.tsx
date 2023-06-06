@@ -7,6 +7,8 @@ import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteCat, getCats } from "../../../store/actions";
 import { Redux_State } from "../../../models/global_types";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 const CatList: React.FC = () => {
   const dispatch: any = useDispatch();
@@ -35,25 +37,35 @@ const CatList: React.FC = () => {
           Crear
         </Button>
       </div>
-
-      <div className={styles.catList}>
-        {cats.length
-          ? cats.map((cat) => {
-              return (
-                <div className={styles.divCard} key={cat.id}>
-                  <CatCard
-                    name={cat.name}
-                    image={cat.photo_url}
-                    breed={cat.breed}
-                    age={cat.age}
-                    id={cat.id}
-                    handleDelete={handleDelete}
-                  />
-                </div>
-              );
-            })
-          : null}
-      </div>
+      {cats.length ? (
+        <div className={styles.catList}>
+          {cats.map((cat) => {
+            return (
+              <div className={styles.divCard} key={cat.id}>
+                <CatCard
+                  name={cat.name}
+                  image={cat.photo_url}
+                  breed={cat.breed}
+                  age={cat.age}
+                  id={cat.id}
+                  handleDelete={handleDelete}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            height: "50vh",
+            alignItems: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      )}
     </div>
   );
 };
