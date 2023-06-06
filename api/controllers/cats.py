@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.get("/")
-async def get_all_cat_breeds_route():
+async def get_cats():
     try:
         cats = await get_all_cats()
         return custom_response_success(cats)
@@ -20,37 +20,45 @@ async def get_all_cat_breeds_route():
 async def get_cat(cat_id: str):
     try:
         cat = await get_cat_by_id(cat_id)
-        return custom_response_success(cat)
+        if cat:
+            return custom_response_success(cat)
+        else:
+            return custom_response_error("Gato no encontrado", 404)
     except Exception as e:
-        return custom_response_error(str(e), 404)
+        return custom_response_error(str(e), 500)
 
 
 @router.post("/")
 async def create_new_cat(cat_data: CatCreate):
     try:
-        response = await create_cat(cat_data)
-        if(response):
-            return custom_response_success(cat_data)
-        else: return custom_response_error(str(e), 500)
+        cat = await create_cat(cat_data)
+        if cat:
+            return custom_response_success(cat)
+        else:
+            return custom_response_error("No se pudo crear el gato", 500)
     except Exception as e:
         return custom_response_error(str(e), 500)
 
 
 @router.put("/{cat_id}")
-async def update_cat_by_id(data: CatCreate, cat_id: str):
+async def update_cat_by_id(cat_id: str, cat_data: CatCreate):
     try:
-        cat = await update_cat(data, cat_id)
-        return custom_response_success(cat)
+        updated_cat = await update_cat(cat_id, cat_data)
+        if updated_cat:
+            return custom_response_success(updated_cat)
+        else:
+            return custom_response_error("Gato no encontrado", 404)
     except Exception as e:
-        return custom_response_error(str(e), 404)
+        return custom_response_error(str(e), 500)
 
 
 @router.delete("/{cat_id}")
 async def delete_cat_by_id(cat_id: str):
     try:
-        response = await delete_cat(cat_id)
-        if(response):
+        deleted = await delete_cat(cat_id)
+        if deleted:
             return custom_response_success({"msg": "Gato eliminado exitosamente"})
+        else:
+            return custom_response_error("Gato no encontrado", 404)
     except Exception as e:
-        return custom_response_error(str(e), 404)
-
+        return custom_response_error(str(e), 500)

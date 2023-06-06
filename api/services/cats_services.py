@@ -1,11 +1,9 @@
-import requests
 from db import get_database
-from models import Cat, CatCreate
+from models import CatCreate
 
 db = get_database()
 
 
-# Traer todos los gatos
 async def get_all_cats():
     try:
         cats = []
@@ -16,26 +14,22 @@ async def get_all_cats():
             cats.append(cat)
         return cats
     except Exception as e:
-        print(e)
-        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+        raise Exception('Ocurrió un error inesperado: {}'.format(e))
 
 
-async def create_cat(cat_data):
+async def create_cat(cat_data: CatCreate):
     try:
-        # Guardar el nuevo gato en la base de datos
         doc_ref_cat = db.collection('cats').document()
         doc_ref_cat.set(cat_data.dict())
 
-        # Verificar si el gato se guardó correctamente
         doc_snapshot_cat = doc_ref_cat.get()
         if doc_snapshot_cat.exists:
             return True
         else:
-            return False
+            raise Exception('No se pudo crear el gato correctamente')
 
     except Exception as e:
-        print(e)
-        return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
+        raise Exception('Ocurrió un error inesperado: {}'.format(e))
 
 
 async def get_cat_by_id(cat_id: str):
@@ -45,25 +39,25 @@ async def get_cat_by_id(cat_id: str):
     if doc_snapshot_cat.exists:
         return doc_snapshot_cat.to_dict()
     else:
-        raise Exception("Gato no encontrado")
+        raise Exception('Gato no encontrado')
 
 
-async def update_cat(data: CatCreate, cat_id:str):
+async def update_cat(cat_id: str, cat_data: CatCreate):
     doc_ref_cat = db.collection('cats').document(cat_id)
-    doc_ref_cat.update(data.dict())
+    doc_ref_cat.update(cat_data.dict())
+
     doc_snapshot_cat = doc_ref_cat.get()
     if doc_snapshot_cat.exists:
         return doc_snapshot_cat.to_dict()
     else:
-        raise Exception("Gato no encontrado")
+        raise Exception('Gato no encontrado')
 
 
-
-async def delete_cat(cat_id):
+async def delete_cat(cat_id: str):
     doc_ref_cat = db.collection('cats').document(cat_id)
     doc_snapshot_cat = doc_ref_cat.get()
 
     if doc_snapshot_cat.exists:
         doc_ref_cat.delete()
     else:
-        raise Exception("Gato no encontrado")
+        raise Exception('Gato no encontrado')
