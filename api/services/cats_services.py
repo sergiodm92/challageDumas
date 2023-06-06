@@ -38,7 +38,7 @@ async def create_cat(cat_data):
         return {'error': 'Ocurrió un error inesperado: {}'.format(e)}
 
 
-async def get_cat_by_id(cat_id: int):
+async def get_cat_by_id(cat_id: str):
     doc_ref_cat = db.collection('cats').document(cat_id)
     doc_snapshot_cat = doc_ref_cat.get()
 

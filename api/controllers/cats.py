@@ -17,9 +17,9 @@ async def get_all_cat_breeds_route():
 
 
 @router.get("/{cat_id}")
-def get_cat(cat_id: int):
+async def get_cat(cat_id: str):
     try:
-        cat = get_cat_by_id(cat_id)
+        cat = await get_cat_by_id(cat_id)
         return custom_response_success(cat)
     except Exception as e:
         return custom_response_error(str(e), 404)
