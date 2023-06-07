@@ -10,7 +10,7 @@ import {
   createStyles,
   Checkbox,
   Typography,
-} from "@material-ui/core";
+} from "@mui/material";
 import { Favorite } from "../../models/image";
 import ImageFavourite from "../ImageFavourite/imageFavourite";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
