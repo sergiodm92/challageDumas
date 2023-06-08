@@ -5,17 +5,17 @@ import {
   Backdrop,
   Fade,
   Grid,
-  makeStyles,
   Theme,
   createStyles,
   Checkbox,
   Typography,
 } from "@mui/material";
+import {makeStyles} from "@mui/styles"
 import { Favorite } from "../../models/image";
 import ImageFavourite from "../ImageFavourite/imageFavourite";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles: any = makeStyles((theme: Theme) =>
   createStyles({
     modal: {
       display: "flex",

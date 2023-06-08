@@ -5,7 +5,7 @@ import { Action } from "../models/global_types";
 
 //-----------GATOS--------------
 
-//action que trae todos los gatos
+//action que trae todos los gatos     const getCats = async()=>{}
 export const getCats = () => {
   return async (dispatch: Dispatch<Action>) => {
     try {
